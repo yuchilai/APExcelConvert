@@ -112,14 +112,14 @@
 
 <div class="list-box">
   <div *ngIf="!isEdit" class="displayed-list">
-    <div *ngFor="let listObj of allFiledNameList" class="displayed-list-container">
+    <div *ngFor="let listObj of allFiledNameList; let i = index" class="displayed-list-container">
       <div class="btn-box">
-        <button *ngIf="!isEdit" type="button" class="btn btn-primary" id="displayed-edit-btn" (click)=editOrder(listObj)>Edit</button>
+        <button *ngIf="!isEdit" type="button" class="btn btn-primary" id="displayed-edit-btn" (click)=editOrder(i,listObj)>Edit</button>
       </div>
       <div cdkDropList class="order-list">
-        <div class="order-box" *ngFor="let item of listObj; let i = index">
+        <div class="order-box" *ngFor="let item of listObj; let j = index">
           <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-          {{ i+1 }}. {{ item }}
+          {{ j+1 }}. {{ item }}
         </div>
       </div>
     </div>
@@ -135,9 +135,9 @@
 </button> -->
   <div *ngIf="isEdit" class="edit-container">
     <div class="btn-box">
-      <!-- <button type="button" class="btn btn-primary" id="displayed-edit-btn" (click)=closeEditing()>
-        Close
-      </button> -->
+      <button type="button" class="btn btn-primary" id="displayed-edit-btn" (click)=cancelEditing()>
+        Cancel
+      </button>
       <button type="button" class="btn btn-primary" id="displayed-edit-btn" (click)=saveEditing()>
        Save
     </button>

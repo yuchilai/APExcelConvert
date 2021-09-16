@@ -47,6 +47,7 @@ export class AppComponent implements OnInit {
   isShowDownloadBtn = false;
   allFiledNameList: Array<string[]> = [];
   storageName = 'gccny_ap_field_name';
+  editingIndex?: number;
 
   constructor(private excelService: ExcelService) {
     const invoice = new Invoice();
@@ -62,8 +63,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.allFiledNameList.push(this.invoiceKeyList);
-    const foo = ['123', '321', '123'];
-    this.allFiledNameList.push(foo);      localStorage.setItem(this.storageName, JSON.stringify(this.allFiledNameList));
+    // const foo = ['123', '321', '123', '1234567', 'cassie'];
+    // this.allFiledNameList.push(foo);      
+    // localStorage.setItem(this.storageName, JSON.stringify(this.allFiledNameList));
     const checkPoint = localStorage.getItem(this.storageName);
      if(checkPoint !== null && checkPoint.length > 0){
        const filedNameListFromStorage: Array<string[]> = JSON.parse(checkPoint);
@@ -277,18 +279,24 @@ export class AppComponent implements OnInit {
     );
   }
 
-  editOrder(item): void {
+  editOrder(i: number, item: string[]): void {
     this.invoiceKeyList = item;
     this.isEdit = true;
     this.isAdding = false;
+    this.editingIndex = i;
+    console.log(i);
   }
 
-  closeEditing(): void{
+  cancelEditing(): void{
+    const storageList: Array<string []> = JSON.parse(localStorage.getItem(this.storageName));
+    this.allFiledNameList = storageList;
     this.isEdit = false;
+    this.editingIndex = undefined;
   }
 
   saveEditing(): void{
     this.isEdit = false;
+    localStorage.setItem(this.storageName, JSON.stringify(this.allFiledNameList));
   }
 
   changeAcceptedFile(): void {
