@@ -1,55 +1,144 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
 
 <div class="excel-img-box">
-  <img src="https://cdn.jsdelivr.net/gh/yuchilai/gccny_AP_Invoices_Converter@master/src/app/image/icons8-microsoft-excel-96.png" alt="">
+  <img
+    src="https://cdn.jsdelivr.net/gh/yuchilai/gccny_AP_Invoices_Converter@master/src/app/image/icons8-microsoft-excel-96.png"
+    alt=""
+  />
 </div>
 <h1 id="title">{{ name }}</h1>
 
 <div *ngFor="let item of errorMsg" class="error-box">
-  <div *ngIf="item.isDisplayed" class="alert alert-danger d-flex align-items-center alert-dismissible fade show"
-    role="alert">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-      class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+  <div
+    *ngIf="item.isDisplayed"
+    class="
+      alert alert-danger
+      d-flex
+      align-items-center
+      alert-dismissible
+      fade
+      show
+    "
+    role="alert"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="currentColor"
+      class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"
+      viewBox="0 0 16 16"
+      role="img"
+      aria-label="Warning:"
+    >
       <path
-        d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
+      />
     </svg>
     <div>
-      {{item.msg}}
+      {{ item.msg }}
     </div>
-    <button (click)="closeErrorMsg(item)" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <button
+      (click)="closeErrorMsg(item)"
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
   </div>
 </div>
-
 
 <p>
   You can edit order by click edit and simpily drag and drop to adjust them.
 </p>
 <div class="export-file-name-box">
   <span>Default export file name : </span>
-  <span class="export-name">{{exportFileName}}</span>
-  <div id="file-name-input-group" *ngIf="isEditExportFileName" class="input-group">
-    <span (click)="cancelExportFileName()" class="input-group-text" id="basic-addon1">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-backspace-reverse" viewBox="0 0 16 16">
-      <path d="M9.854 5.146a.5.5 0 0 1 0 .708L7.707 8l2.147 2.146a.5.5 0 0 1-.708.708L7 8.707l-2.146 2.147a.5.5 0 0 1-.708-.708L6.293 8 4.146 5.854a.5.5 0 1 1 .708-.708L7 7.293l2.146-2.147a.5.5 0 0 1 .708 0z"></path>
-      <path d="M2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7.08a2 2 0 0 0 1.519-.698l4.843-5.651a1 1 0 0 0 0-1.302L10.6 1.7A2 2 0 0 0 9.08 1H2zm7.08 1a1 1 0 0 1 .76.35L14.682 8l-4.844 5.65a1 1 0 0 1-.759.35H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h7.08z"></path>
+  <span class="export-name">{{ exportFileName }}</span>
+  <div
+    id="file-name-input-group"
+    *ngIf="isEditExportFileName"
+    class="input-group"
+  >
+    <span
+      (click)="cancelExportFileName()"
+      class="input-group-text"
+      id="basic-addon1"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-backspace-reverse"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M9.854 5.146a.5.5 0 0 1 0 .708L7.707 8l2.147 2.146a.5.5 0 0 1-.708.708L7 8.707l-2.146 2.147a.5.5 0 0 1-.708-.708L6.293 8 4.146 5.854a.5.5 0 1 1 .708-.708L7 7.293l2.146-2.147a.5.5 0 0 1 .708 0z"
+        ></path>
+        <path
+          d="M2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7.08a2 2 0 0 0 1.519-.698l4.843-5.651a1 1 0 0 0 0-1.302L10.6 1.7A2 2 0 0 0 9.08 1H2zm7.08 1a1 1 0 0 1 .76.35L14.682 8l-4.844 5.65a1 1 0 0 1-.759.35H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h7.08z"
+        ></path>
       </svg>
-      </span>
-    <input (keyup.enter)="saveExportFileName()" [(ngModel)]="tempName" type="text" class="form-control">
-    <span (click)="saveExportFileName()" class="input-group-text" id="basic-addon1">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"></path>
+    </span>
+    <input
+      (keyup.enter)="saveExportFileName()"
+      [(ngModel)]="tempName"
+      type="text"
+      class="form-control"
+    />
+    <span
+      (click)="saveExportFileName()"
+      class="input-group-text"
+      id="basic-addon1"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-arrow-right"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+        ></path>
       </svg>
     </span>
   </div>
-  <button *ngIf="!isEditExportFileName" (click)="editExportFileName()" id="edit-export" type="button" class="btn btn-outline-info">Edit</button>
+  <button
+    *ngIf="!isEditExportFileName"
+    (click)="editExportFileName()"
+    id="edit-export"
+    type="button"
+    class="btn btn-outline-info"
+  >
+    Edit
+  </button>
 </div>
 <div class="input-box">
   <div class="control-accpet-box">
-    <div class="control-title" [style]="isAutoDowload ? excelStyle : notExcelStyle">
-      {{isAutoDowload ? 'Automatically download Excel file' : 'Click to dowload Excel file'}}
+    <div
+      class="control-title"
+      [style]="isAutoDowload ? excelStyle : notExcelStyle"
+    >
+      {{
+        isAutoDowload
+          ? 'Automatically download Excel file'
+          : 'Click to dowload Excel file'
+      }}
     </div>
     <div class="form-check form-switch">
-      <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" [checked]="isAutoDowload" (click)="changeAutoDowload()">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="flexSwitchCheckChecked"
+        [checked]="isAutoDowload"
+        (click)="changeAutoDowload()"
+      />
       <!-- <label class="form-check-label" for="flexSwitchCheckChecked">
     {{isExcelOnly ? 'Only Accept Excel File' : 'Accept Any File'}}
   </label> -->
@@ -57,11 +146,20 @@
   </div>
 
   <div class="control-accpet-box">
-    <div class="control-title" [style]="isExcelOnly ? excelStyle : notExcelStyle">
-      {{isExcelOnly ? 'Only Accept Excel File' : 'Accept Any File'}}
+    <div
+      class="control-title"
+      [style]="isExcelOnly ? excelStyle : notExcelStyle"
+    >
+      {{ isExcelOnly ? 'Only Accept Excel File' : 'Accept Any File' }}
     </div>
     <div class="form-check form-switch">
-      <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" [checked]="isExcelOnly" (click)="changeAcceptedFile()">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="flexSwitchCheckChecked"
+        [checked]="isExcelOnly"
+        (click)="changeAcceptedFile()"
+      />
       <!-- <label class="form-check-label" for="flexSwitchCheckChecked">
   {{isExcelOnly ? 'Only Accept Excel File' : 'Accept Any File'}}
 </label> -->
@@ -69,29 +167,56 @@
   </div>
 
   <div class="mb-3">
-    <label for="formFile" class="form-label">Choose your invoice File: (accept file: .xlsx .cvs .xlsm .xls) </label>
-    <input #myInput (change)="onFileChange($event)" class="form-control" type="file" id="formFile" accept="{{isExcelOnly ? acceptExcelOnly : ''}}">
+    <label for="formFile" class="form-label"
+      >Choose your invoice File: (accept file: .xlsx .cvs .xlsm .xls)
+    </label>
+    <input
+      #myInput
+      (change)="onFileChange($event)"
+      class="form-control"
+      type="file"
+      id="formFile"
+      accept="{{ isExcelOnly ? acceptExcelOnly : '' }}"
+    />
   </div>
   <div *ngIf="fileName !== undefined" class="file-name">
     <span>Input File Name: </span>
-    {{fileName}}
+    {{ fileName }}
   </div>
   <div *ngIf="hasOutput" class="excel-output">
     <div *ngFor="let item of displayedList; let i = index" class="excel-icon">
       <a (click)="dowloadTheFile(i)" class="download-link">
-        <img id="download-img" src="https://cdn.jsdelivr.net/gh/yuchilai/gccny_AP_Invoices_Converter@master/src/app/image/icons8-export-excel-96.png" alt="">
+        <img
+          id="download-img"
+          src="https://cdn.jsdelivr.net/gh/yuchilai/gccny_AP_Invoices_Converter@master/src/app/image/icons8-export-excel-96.png"
+          alt=""
+        />
         <span class="download-name">{{ item.name }} Download</span>
       </a>
     </div>
   </div>
   <div *ngIf="isShowDownloadBtn" class="show-download-file">
-    <svg (click)="showDownloadFileBtn()" id="down-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-      fill="currentColor" class="bi bi-arrow-down-circle animate__animated animate__bounce noselect"
-      viewBox="0 0 16 16">
-      <path fill-rule="evenodd"
-        d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
+    <svg
+      (click)="showDownloadFileBtn()"
+      id="down-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      fill="currentColor"
+      class="bi bi-arrow-down-circle animate__animated animate__bounce noselect"
+      viewBox="0 0 16 16"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"
+      />
     </svg>
-    <div (click)="showDownloadFileBtn()" class="show-download-file-title noselect">Show downloaded files</div>
+    <div
+      (click)="showDownloadFileBtn()"
+      class="show-download-file-title noselect"
+    >
+      Show downloaded files
+    </div>
   </div>
 </div>
 
@@ -105,26 +230,44 @@
     <li>Comfort Mode (Adding with every click)</li>
   </ol>
   <div class="form-check form-switch">
-    <input (click)="changeMode()" [checked]="isSportMode" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-    <label class="form-check-label" for="flexSwitchCheckDefault">{{isSportMode ? 'Sport Mode' : 'Comfort Mode'}}</label>
+    <input
+      (click)="changeMode()"
+      [checked]="isSportMode"
+      class="form-check-input"
+      type="checkbox"
+      id="flexSwitchCheckDefault"
+    />
+    <label class="form-check-label" for="flexSwitchCheckDefault">{{
+      isSportMode ? 'Sport Mode' : 'Comfort Mode'
+    }}</label>
   </div>
 </div>
 
 <div class="list-box">
   <div *ngIf="!isEdit" class="displayed-list">
-    <div *ngFor="let listObj of allFiledNameList; let i = index" class="displayed-list-container">
+    <div
+      *ngFor="let listObj of allFiledNameList; let i = index"
+      class="displayed-list-container"
+    >
       <div class="btn-box">
-        <button *ngIf="!isEdit" type="button" class="btn btn-primary" id="displayed-edit-btn" (click)=editOrder(i,listObj)>Edit</button>
+        <button
+          *ngIf="!isEdit"
+          type="button"
+          class="btn btn-primary"
+          id="displayed-edit-btn"
+          (click)="editOrder(i, listObj)"
+        >
+          Edit
+        </button>
       </div>
       <div cdkDropList class="order-list">
         <div class="order-box" *ngFor="let item of listObj; let j = index">
           <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-          {{ j+1 }}. {{ item }}
+          {{ j + 1 }}. {{ item }}
         </div>
       </div>
     </div>
   </div>
-
 
   <!-- <button type="button" class="{{!isEdit ? 'btn btn-primary' : 'btn btn-danger'}}" (click)=editOrder()>{{!isEdit ? 'Edit' : 'Close'}}</button> -->
 
@@ -134,30 +277,80 @@
   </svg>
 </button> -->
   <div *ngIf="isEdit" class="edit-container">
-    <div class="btn-box">
-      <button type="button" class="btn btn-primary" id="displayed-edit-btn" (click)=cancelEditing()>
+    <div class="editing-btn-box">
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="displayed-edit-btn"
+        (click)="cancelEditing()"
+      >
         Cancel
       </button>
-      <button type="button" class="btn btn-primary" id="displayed-edit-btn" (click)=saveEditing()>
-       Save
-    </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="displayed-edit-btn"
+        (click)="restoreFieldName()"
+      >
+        Reset
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="displayed-edit-btn"
+        (click)="clearAllFieldName()"
+      >
+        Clear
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="displayed-edit-btn"
+        (click)="saveEditing()"
+      >
+        Save
+      </button>
     </div>
     <div cdkDropList class="edit-list" (cdkDropListDropped)="drop($event)">
-      <div class="edit-box" *ngFor="let item of invoiceKeyList; let i = index" cdkDrag>
+      <div
+        class="edit-box"
+        *ngFor="let item of invoiceKeyList; let i = index"
+        cdkDrag
+      >
         <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-        {{ i+1 }}. {{ item }}
-        <button (click)="delItems(i)" type="button" class="btn-close" aria-label="Close"></button>
+        {{ i + 1 }}. {{ item }}
+        <button
+          (click)="delItems(i)"
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+        ></button>
       </div>
       <div *ngIf="!isAdding" class="edit-box" id="add-last-box" cdkDrag>
         <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
         <div (click)="prepareAddingInput()" class="add-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
-            viewBox="0 0 16 16">
-            <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-plus-lg"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"
+            />
           </svg>
         </div>
       </div>
-      <input (keyup.enter)="saveInvoiceColumn()" [(ngModel)]="inputToBeAdded" *ngIf="isAdding" id="add-input" class="form-control form-control-lg" type="text">
+      <input
+        (keyup.enter)="saveInvoiceColumn()"
+        [(ngModel)]="inputToBeAdded"
+        *ngIf="isAdding"
+        id="add-input"
+        class="form-control form-control-lg"
+        type="text"
+      />
       <!-- <div class="input-group mb-3">
     <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
     <div class="input-group-append">
@@ -166,28 +359,8 @@
   </div> -->
     </div>
   </div>
-
 </div>
 <div class="footer"></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!-- <hr>
 

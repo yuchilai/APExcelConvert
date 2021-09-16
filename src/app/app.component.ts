@@ -50,8 +50,6 @@ export class AppComponent implements OnInit {
   editingIndex?: number;
 
   constructor(private excelService: ExcelService) {
-    const invoice = new Invoice();
-    this.invoiceKeyList = Object.keys(invoice);
   }
 
   @HostListener('window:keyup', ['$event'])
@@ -62,7 +60,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.allFiledNameList.push(this.invoiceKeyList);
     // const foo = ['123', '321', '123', '1234567', 'cassie'];
     // this.allFiledNameList.push(foo);      
     // localStorage.setItem(this.storageName, JSON.stringify(this.allFiledNameList));
@@ -74,6 +71,9 @@ export class AppComponent implements OnInit {
            this.allFiledNameList.push(strList);
          });
        }
+     }
+     else{
+      this.createADefaultKeyObjGlobally();
      }
      console.log(this.allFiledNameList);
   }
@@ -289,7 +289,14 @@ export class AppComponent implements OnInit {
 
   cancelEditing(): void{
     const storageList: Array<string []> = JSON.parse(localStorage.getItem(this.storageName));
-    this.allFiledNameList = storageList;
+    if(storageList !== null){
+      this.allFiledNameList = storageList;
+      this.invoiceKeyList = storageList[this.editingIndex];
+    }
+    else{
+      this.allFiledNameList[this.editingIndex] = this.createADefaultKeyObj();
+      this.invoiceKeyList = this.allFiledNameList[this.editingIndex];
+    }
     this.isEdit = false;
     this.editingIndex = undefined;
   }
@@ -297,6 +304,28 @@ export class AppComponent implements OnInit {
   saveEditing(): void{
     this.isEdit = false;
     localStorage.setItem(this.storageName, JSON.stringify(this.allFiledNameList));
+  }
+
+  restoreFieldName(): void{
+    this.invoiceKeyList = this.createADefaultKeyObj();
+    this.isAdding = false
+  }
+
+  clearAllFieldName(): void{
+    this.invoiceKeyList = [];
+    this.isAdding = false;
+  }
+
+  createADefaultKeyObjGlobally(): void{
+    const invoice = new Invoice();
+    this.invoiceKeyList = Object.keys(invoice);
+    this.allFiledNameList.push(this.invoiceKeyList);
+  }
+
+  createADefaultKeyObj(): string[]{
+    const invoice = new Invoice();
+    const invoiceKeys: string[] = Object.keys(invoice);
+    return invoiceKeys;
   }
 
   changeAcceptedFile(): void {

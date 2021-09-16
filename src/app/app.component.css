@@ -190,6 +190,19 @@ p {
   border-radius: 5px 5px 0 0;
 }
 
+.editing-btn-box {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+  /* margin-bottom: 5px; */
+  padding: 20px 10px 10px 5px;
+  border: solid 1px rgb(244, 246, 248);
+  background-color: rgb(244, 246, 248);
+  width: 400px;
+  max-width: 100%;
+  border-radius: 5px 5px 0 0;
+}
+
 .order-list,
 .edit-list {
   width: 400px;
