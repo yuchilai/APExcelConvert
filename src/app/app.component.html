@@ -135,9 +135,9 @@
 </button> -->
   <div *ngIf="isEdit" class="edit-container">
     <div class="btn-box">
-      <button type="button" class="btn btn-primary" id="displayed-edit-btn" (click)=closeEditing()>
-        Edit
-      </button>
+      <!-- <button type="button" class="btn btn-primary" id="displayed-edit-btn" (click)=closeEditing()>
+        Close
+      </button> -->
       <button type="button" class="btn btn-primary" id="displayed-edit-btn" (click)=saveEditing()>
        Save
     </button>
@@ -189,7 +189,7 @@
 
 
 
-<hr>
+<!-- <hr>
 
 <div class="list-box">
   <div *ngIf="!isEdit" cdkDropList class="order-list">
@@ -217,12 +217,12 @@
       </div>
     </div>
     <input (keyup.enter)="saveInvoiceColumn()" [(ngModel)]="inputToBeAdded" *ngIf="isAdding" id="add-input" class="form-control form-control-lg" type="text">
-    <!-- <div class="input-group mb-3">
+    <div class="input-group mb-3">
   <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
   <div class="input-group-append">
     <button class="btn btn-outline-secondary" type="button">Button</button>
   </div>
-</div> -->
+</div>
   </div>
 </div>
-<div class="footer"></div>
+<div class="footer"></div> -->

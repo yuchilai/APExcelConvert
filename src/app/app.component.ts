@@ -96,6 +96,7 @@ export class AppComponent {
       const jsonArr = JSON.parse(dataString);
       this.outputList = [];
       this.displayedList = [];
+      this.errorMsg = [];
       if (workBook.SheetNames.length !== undefined) {
         for (let i = 0; i < workBook.SheetNames.length; i++) {
           this.invoices = [];
