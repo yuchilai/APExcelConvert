@@ -51,6 +51,8 @@ export class AppComponent {
     const invoice = new Invoice();
     this.invoiceKeyList = Object.keys(invoice);
     this.allFiledNameList.push(this.invoiceKeyList);
+    const foo = ['123', '321', '123'];
+    this.allFiledNameList.push(foo);
     localStorage.setItem(this.storageName, JSON.stringify(this.allFiledNameList));
     const checkPoint = localStorage.getItem(this.storageName);
     if(checkPoint !== null && checkPoint.length > 0){
@@ -271,7 +273,8 @@ export class AppComponent {
     );
   }
 
-  editOrder(): void {
+  editOrder(item): void {
+    this.invoiceKeyList = item;
     this.isEdit = !this.isEdit;
     this.isAdding = false;
   }

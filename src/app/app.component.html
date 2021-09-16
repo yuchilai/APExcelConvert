@@ -109,27 +109,30 @@
     <label class="form-check-label" for="flexSwitchCheckDefault">{{isSportMode ? 'Sport Mode' : 'Comfort Mode'}}</label>
   </div>
 </div>
-<div class="btn-box">
-  <!-- <button type="button" class="{{!isEdit ? 'btn btn-primary' : 'btn btn-danger'}}" (click)=editOrder()>{{!isEdit ? 'Edit' : 'Close'}}</button> -->
-  <button *ngIf="!isEdit" type="button" class="btn btn-primary" (click)=editOrder()>Edit</button>
-  <button (click)=editOrder() *ngIf="isEdit" type="button" class="btn btn-outline-secondary">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-      <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
-    </svg>
-</button>
-</div>
+
 <div class="list-box">
   <div *ngIf="!isEdit" class="displayed-list">
-  <div *ngFor="let listObj of allFiledNameList" cdkDropList class="order-list">
-  <div class="order-box" *ngFor="let item of listObj; let i = index">
-    <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-    {{ i+1 }}. {{ item }}
+    <div *ngFor="let listObj of allFiledNameList" class="displayed-list-container">
+      <div class="btn-box">
+        <button *ngIf="!isEdit" type="button" class="btn btn-primary" id="displayed-edit-btn" (click)=editOrder(listObj)>Edit</button>
+      </div>
+      <div cdkDropList class="order-list">
+        <div class="order-box" *ngFor="let item of listObj; let i = index">
+          <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+          {{ i+1 }}. {{ item }}
+        </div>
+      </div>
+    </div>
   </div>
 
-</div>
-  </div>
 
+          <!-- <button type="button" class="{{!isEdit ? 'btn btn-primary' : 'btn btn-danger'}}" (click)=editOrder()>{{!isEdit ? 'Edit' : 'Close'}}</button> -->
 
+  <!-- <button (click)=editOrder() *ngIf="isEdit" type="button" class="btn btn-outline-secondary">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+    <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
+  </svg>
+</button> -->
   <div *ngIf="isEdit" cdkDropList class="edit-list" (cdkDropListDropped)="drop($event)">
 
     <div class="edit-box" *ngFor="let item of invoiceKeyList; let i = index" cdkDrag>
@@ -179,37 +182,37 @@
 <hr>
 
 <div class="list-box">
-<div *ngIf="!isEdit" cdkDropList class="order-list">
-  <div class="order-box" *ngFor="let item of invoiceKeyList; let i = index">
-    <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-    {{ i+1 }}. {{ item }}
-  </div>
-
-</div>
-
-<div *ngIf="isEdit" cdkDropList class="edit-list" (cdkDropListDropped)="drop($event)">
-
-  <div class="edit-box" *ngFor="let item of invoiceKeyList; let i = index" cdkDrag>
-    <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-    {{ i+1 }}. {{ item }}
-    <button (click)="delItems(i)" type="button" class="btn-close" aria-label="Close"></button>
-  </div>
-  <div *ngIf="!isAdding" class="edit-box" id="add-last-box" cdkDrag>
-    <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-    <div (click)="prepareAddingInput()" class="add-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
-        viewBox="0 0 16 16">
-        <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
-      </svg>
+  <div *ngIf="!isEdit" cdkDropList class="order-list">
+    <div class="order-box" *ngFor="let item of invoiceKeyList; let i = index">
+      <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+      {{ i+1 }}. {{ item }}
     </div>
+
   </div>
-  <input (keyup.enter)="saveInvoiceColumn()" [(ngModel)]="inputToBeAdded" *ngIf="isAdding" id="add-input" class="form-control form-control-lg" type="text">
-  <!-- <div class="input-group mb-3">
+
+  <div *ngIf="isEdit" cdkDropList class="edit-list" (cdkDropListDropped)="drop($event)">
+
+    <div class="edit-box" *ngFor="let item of invoiceKeyList; let i = index" cdkDrag>
+      <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+      {{ i+1 }}. {{ item }}
+      <button (click)="delItems(i)" type="button" class="btn-close" aria-label="Close"></button>
+    </div>
+    <div *ngIf="!isAdding" class="edit-box" id="add-last-box" cdkDrag>
+      <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+      <div (click)="prepareAddingInput()" class="add-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+          viewBox="0 0 16 16">
+          <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+        </svg>
+      </div>
+    </div>
+    <input (keyup.enter)="saveInvoiceColumn()" [(ngModel)]="inputToBeAdded" *ngIf="isAdding" id="add-input" class="form-control form-control-lg" type="text">
+    <!-- <div class="input-group mb-3">
   <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
   <div class="input-group-append">
     <button class="btn btn-outline-secondary" type="button">Button</button>
   </div>
 </div> -->
-</div>
+  </div>
 </div>
 <div class="footer"></div>

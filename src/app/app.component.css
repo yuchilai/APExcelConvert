@@ -92,7 +92,20 @@ p {
   display: flex;
   justify-content: flex-end;
   margin-top: 25px;
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
+  padding: 20px 10px 10px 5px;
+  border: solid 1px rgb(244,246,248);
+  background-color: rgb(244,246,248);
+}
+
+#displayed-edit-btn{
+  background-color: rgb(83,64,255);
+}
+
+#displayed-edit-btn:hover{
+  background-color: #1800f3;
+  transition: all .2s ease-in-out;
+  transform: scale(1.09); 
 }
 
 .control-accpet-box {
@@ -163,8 +176,20 @@ p {
 }
 
 .list-box {
+  width: 100%;
+
+}
+
+.displayed-list {
+  margin: 10px;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.displayed-list-container{
+  margin: 50px;
 }
 
 .adding-mode {
@@ -221,32 +246,31 @@ p {
   text-align: center;
 }
 
-.show-download-file{
+.show-download-file {
   display: flex;
   justify-content: center;
   margin-top: 50px;
   flex-direction: column;
   align-items: center;
   color: rgb(65, 65, 65);
-  
 }
 
-.show-download-file-title{
+.show-download-file-title {
   margin-top: 10px;
   color: #999;
   cursor: pointer;
 }
 
-#down-icon{
+#down-icon {
   cursor: pointer;
 }
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
