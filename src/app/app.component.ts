@@ -44,11 +44,24 @@ export class AppComponent {
   outputList: any[] = [];
   displayedList: any[] = [];
   isShowDownloadBtn = false;
-  allFiledNameList: any[] = [];
+  allFiledNameList: Array<string[]> = [];
+  storageName = 'gccny_ap_field_name';
 
   constructor(private excelService: ExcelService) {
     const invoice = new Invoice();
     this.invoiceKeyList = Object.keys(invoice);
+    this.allFiledNameList.push(this.invoiceKeyList);
+    localStorage.setItem(this.storageName, JSON.stringify(this.allFiledNameList));
+    const checkPoint = localStorage.getItem(this.storageName);
+    if(checkPoint !== null && checkPoint.length > 0){
+      const filedNameListFromStorage: Array<string[]> = JSON.parse(checkPoint);
+      if(filedNameListFromStorage instanceof Array){
+        filedNameListFromStorage.forEach(strList => {
+          this.allFiledNameList.push(strList);
+        });
+      }
+    }
+    console.log(this.allFiledNameList);
   }
 
   @HostListener('window:keyup', ['$event'])
