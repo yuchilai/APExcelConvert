@@ -275,8 +275,16 @@ export class AppComponent {
 
   editOrder(item): void {
     this.invoiceKeyList = item;
-    this.isEdit = !this.isEdit;
+    this.isEdit = true;
     this.isAdding = false;
+  }
+
+  closeEditing(): void{
+    this.isEdit = false;
+  }
+
+  saveEditing(): void{
+    this.isEdit = false;
   }
 
   changeAcceptedFile(): void {
