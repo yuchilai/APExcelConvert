@@ -3,7 +3,8 @@ import {
   ElementRef,
   VERSION,
   ViewChild,
-  HostListener
+  HostListener,
+  OnInit
 } from '@angular/core';
 import { ExcelService } from './service/excel.service';
 import * as XLSX from 'xlsx';
@@ -17,7 +18,7 @@ import { Displayed, IDisplayed } from './displayed.model';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   @ViewChild('myInput')
   myInputVariable: ElementRef;
 
@@ -71,6 +72,10 @@ export class AppComponent {
     if (event.key === 'Escape') {
       this.isEdit = false;
     }
+  }
+
+  ngOnInit() {
+      // Called after the constructor and called  after the first ngOnChanges() 
   }
 
   onFileChange(ev) {
