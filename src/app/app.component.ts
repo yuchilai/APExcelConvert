@@ -49,6 +49,7 @@ export class AppComponent implements OnInit {
   allFiledNameList: Array<string[]> = [];
   storageName = 'gccny_ap_field_name';
   editingIndex?: number;
+  isChanged?: boolean;
 
   constructor(private excelService: ExcelService) {}
 
@@ -298,6 +299,7 @@ export class AppComponent implements OnInit {
       event.previousIndex,
       event.currentIndex
     );
+    this.isChanged = true;
   }
 
   editOrder(i: number, item: string[]): void {
@@ -305,13 +307,14 @@ export class AppComponent implements OnInit {
     this.isEdit = true;
     this.isAdding = false;
     this.editingIndex = i;
+    this.isChanged = false;
     console.log(i);
   }
 
   cancelEditing(): void {
     console.log(this.inputToBeAdded === '');
     console.log(this.inputToBeAdded === null);
-    if (this.inputToBeAdded !== undefined && this.inputToBeAdded !== '') {
+    if (this.inputToBeAdded !== undefined && this.inputToBeAdded !== '' || this.isChanged) {
       Swal.fire({
         title: 'Do you want to save the changes?',
         showDenyButton: true,
@@ -321,7 +324,9 @@ export class AppComponent implements OnInit {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          this.saveInvoiceColumn();
+          if(this.inputToBeAdded !== undefined){
+            this.saveInvoiceColumn();
+          }
           this.saveEditing();
           Swal.fire('Saved!', '', 'success');
         } else if (result.isDenied) {
@@ -343,6 +348,7 @@ export class AppComponent implements OnInit {
       this.inputToBeAdded = this.inputToBeAdded.trim();
       if (this.inputToBeAdded !== '') {
         this.invoiceKeyList.push(this.inputToBeAdded);
+        this.isChanged = true;
         this.inputToBeAdded = undefined;
         if (!this.isSportMode) {
           this.isAdding = false;
