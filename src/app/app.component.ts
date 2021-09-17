@@ -12,6 +12,7 @@ import { IInvoice, Invoice } from './invoice.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ErrorMsg, IErrorMsg } from './errorMsg.model';
 import { Displayed, IDisplayed } from './displayed.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'my-app',
@@ -167,6 +168,25 @@ export class AppComponent implements OnInit {
             msgObj.isDisplayed = true;
             this.errorMsg.push(msgObj);
             this.checkIfOutputListNotEmpty();
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'bottom-end',
+              showConfirmButton: false,
+              timer: 10000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+              },
+            });
+
+            Toast.fire({
+              icon: 'error',
+              title:
+                'File: ' +
+                this.fileName +
+                'some of sheets do not convert successfully or something went wrong! Please see the deatil above!',
+            });
           }
         }
       } else {
@@ -289,18 +309,36 @@ export class AppComponent implements OnInit {
   }
 
   cancelEditing(): void {
-    const storageList: Array<string[]> = JSON.parse(
-      localStorage.getItem(this.storageName)
-    );
-    if (storageList !== null) {
-      this.allFiledNameList = storageList;
-      this.invoiceKeyList = storageList[this.editingIndex];
+    console.log(this.inputToBeAdded);
+    if (this.inputToBeAdded !== undefined) {
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire('Saved!', '', 'success');
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info');
+        }
+      });
     } else {
-      this.allFiledNameList[this.editingIndex] = this.createADefaultKeyObj();
-      this.invoiceKeyList = this.allFiledNameList[this.editingIndex];
+      const storageList: Array<string[]> = JSON.parse(
+        localStorage.getItem(this.storageName)
+      );
+      if (storageList !== null) {
+        this.allFiledNameList = storageList;
+        this.invoiceKeyList = storageList[this.editingIndex];
+      } else {
+        this.allFiledNameList[this.editingIndex] = this.createADefaultKeyObj();
+        this.invoiceKeyList = this.allFiledNameList[this.editingIndex];
+      }
+      this.isEdit = false;
+      this.editingIndex = undefined;
     }
-    this.isEdit = false;
-    this.editingIndex = undefined;
   }
 
   saveEditing(): void {
