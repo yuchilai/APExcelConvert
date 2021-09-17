@@ -309,8 +309,9 @@ export class AppComponent implements OnInit {
   }
 
   cancelEditing(): void {
-    console.log(this.inputToBeAdded);
-    if (this.inputToBeAdded !== undefined) {
+    console.log(this.inputToBeAdded === '');
+    console.log(this.inputToBeAdded === null);
+    if (this.inputToBeAdded !== undefined && this.inputToBeAdded !== '') {
       Swal.fire({
         title: 'Do you want to save the changes?',
         showDenyButton: true,
@@ -320,25 +321,53 @@ export class AppComponent implements OnInit {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
+          this.saveInvoiceColumn();
+          this.saveEditing();
           Swal.fire('Saved!', '', 'success');
         } else if (result.isDenied) {
+          this.inputToBeAdded = undefined;
+          this.cancelEditing();
           Swal.fire('Changes are not saved', '', 'info');
         }
       });
     } else {
-      const storageList: Array<string[]> = JSON.parse(
-        localStorage.getItem(this.storageName)
-      );
-      if (storageList !== null) {
-        this.allFiledNameList = storageList;
-        this.invoiceKeyList = storageList[this.editingIndex];
-      } else {
-        this.allFiledNameList[this.editingIndex] = this.createADefaultKeyObj();
-        this.invoiceKeyList = this.allFiledNameList[this.editingIndex];
+      if(this.inputToBeAdded === ''){
+        this.inputToBeAdded = undefined;
       }
-      this.isEdit = false;
-      this.editingIndex = undefined;
+      this.sync();
     }
+  }
+
+  saveInvoiceColumn(): void {
+    if (this.inputToBeAdded !== undefined) {
+      this.inputToBeAdded = this.inputToBeAdded.trim();
+      if (this.inputToBeAdded !== '') {
+        this.invoiceKeyList.push(this.inputToBeAdded);
+        this.inputToBeAdded = undefined;
+        if (!this.isSportMode) {
+          this.isAdding = false;
+        }
+      } else {
+        this.addShakingAnimation('add-input');
+      }
+    } else {
+      this.addShakingAnimation('add-input');
+    }
+  }
+
+  sync(): void{
+    const storageList: Array<string[]> = JSON.parse(
+      localStorage.getItem(this.storageName)
+    );
+    if (storageList !== null) {
+      this.allFiledNameList = storageList;
+      this.invoiceKeyList = storageList[this.editingIndex];
+    } else {
+      this.allFiledNameList[this.editingIndex] = this.createADefaultKeyObj();
+      this.invoiceKeyList = this.allFiledNameList[this.editingIndex];
+    }
+    this.isEdit = false;
+    this.editingIndex = undefined;
   }
 
   saveEditing(): void {
@@ -347,6 +376,7 @@ export class AppComponent implements OnInit {
       this.storageName,
       JSON.stringify(this.allFiledNameList)
     );
+    this.sync();
   }
 
   restoreFieldName(): void {
@@ -394,23 +424,6 @@ export class AppComponent implements OnInit {
 
   prepareAddingInput(): void {
     this.isAdding = !this.isAdding;
-  }
-
-  saveInvoiceColumn(): void {
-    if (this.inputToBeAdded !== undefined) {
-      this.inputToBeAdded = this.inputToBeAdded.trim();
-      if (this.inputToBeAdded !== '') {
-        this.invoiceKeyList.push(this.inputToBeAdded);
-        this.inputToBeAdded = undefined;
-        if (!this.isSportMode) {
-          this.isAdding = false;
-        }
-      } else {
-        this.addShakingAnimation('add-input');
-      }
-    } else {
-      this.addShakingAnimation('add-input');
-    }
   }
 
   changeMode(): void {
