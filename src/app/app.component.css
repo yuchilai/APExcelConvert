@@ -190,6 +190,22 @@ p {
   border-radius: 5px 5px 0 0;
 }
 
+#arrow-return-left-icon{
+  cursor: pointer;
+}
+#arrow-return-left-icon:hover{
+  background-color: #b1b1b1;
+}
+
+
+.edit-container {
+  display: flex;
+  justify-content: center;
+}
+
+.editing-wrapper {
+}
+
 .editing-btn-box {
   display: flex;
   justify-content: space-between;
@@ -286,6 +302,22 @@ p {
 
 #down-icon {
   cursor: pointer;
+}
+
+.create-list-container {
+}
+
+.create-icon {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.adding-icon {
+}
+
+.create-list-title {
 }
 
 .noselect {

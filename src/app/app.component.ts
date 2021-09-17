@@ -4,7 +4,7 @@ import {
   VERSION,
   ViewChild,
   HostListener,
-  OnInit
+  OnInit,
 } from '@angular/core';
 import { ExcelService } from './service/excel.service';
 import * as XLSX from 'xlsx';
@@ -16,7 +16,7 @@ import { Displayed, IDisplayed } from './displayed.model';
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
   @ViewChild('myInput')
@@ -49,8 +49,7 @@ export class AppComponent implements OnInit {
   storageName = 'gccny_ap_field_name';
   editingIndex?: number;
 
-  constructor(private excelService: ExcelService) {
-  }
+  constructor(private excelService: ExcelService) {}
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent): void {
@@ -61,30 +60,31 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // const foo = ['123', '321', '123', '1234567', 'cassie'];
-    // this.allFiledNameList.push(foo);      
+    // this.allFiledNameList.push(foo);
     // localStorage.setItem(this.storageName, JSON.stringify(this.allFiledNameList));
+    //HERE HAS TO HAVE SELECTED INDEX FOR DEFUALT 'invoiceKeyList'
     const checkPoint = localStorage.getItem(this.storageName);
-     if(checkPoint !== null && checkPoint.length > 0){
-       const filedNameListFromStorage: Array<string[]> = JSON.parse(checkPoint);
-       if(filedNameListFromStorage instanceof Array){
-         filedNameListFromStorage.forEach(strList => {
-           this.allFiledNameList.push(strList);
-         });
-       }
-     }
-     else{
+    if (checkPoint !== null && checkPoint.length > 0) {
+      const filedNameListFromStorage: Array<string[]> = JSON.parse(checkPoint);
+      if (filedNameListFromStorage instanceof Array) {
+        filedNameListFromStorage.forEach((strList) => {
+          this.allFiledNameList.push(strList);
+        });
+      }
+    } else {
       this.createADefaultKeyObjGlobally();
-     }
-     console.log(this.allFiledNameList);
+    }
+    console.log(this.allFiledNameList);
   }
 
   onFileChange(ev) {
+    console.warn(this.invoiceKeyList);
     let workBook = null;
     let jsonData = null;
     const reader = new FileReader();
     const file = ev.target.files[0];
     this.fileName = ev.target.files[0].name;
-    reader.onload = event => {
+    reader.onload = (event) => {
       const data = reader.result;
       workBook = XLSX.read(data, { type: 'binary' });
       jsonData = workBook.SheetNames.reduce((initial, name) => {
@@ -105,7 +105,7 @@ export class AppComponent implements OnInit {
       if (workBook.SheetNames.length !== undefined) {
         for (let i = 0; i < workBook.SheetNames.length; i++) {
           this.invoices = [];
-          jsonArr[workBook.SheetNames[i]].forEach(obj => {
+          jsonArr[workBook.SheetNames[i]].forEach((obj) => {
             const invoiceObj = this.invoiceKeyList.reduce((carry, item) => {
               carry[item] = undefined;
               return carry;
@@ -113,7 +113,7 @@ export class AppComponent implements OnInit {
 
             let isObjNotEmpty = false;
             for (var key in obj) {
-              this.invoiceKeyList.forEach(k => {
+              this.invoiceKeyList.forEach((k) => {
                 // console.log("key: " + key + ", value: " + obj[key])
                 // console.log("k: " + k + ", value: " + invoiceObj[k]);
                 // console.log(key === k);
@@ -140,19 +140,18 @@ export class AppComponent implements OnInit {
               !this.isAutoDowload
             );
             this.outputList.push(this.invoices);
-            if(this.isAutoDowload){
-              if(this.checkIfOutputListNotEmpty()){
+            if (this.isAutoDowload) {
+              if (this.checkIfOutputListNotEmpty()) {
                 this.isShowDownloadBtn = true;
               }
-            }
-            else{
-              if(this.checkIfOutputListNotEmpty()){
+            } else {
+              if (this.checkIfOutputListNotEmpty()) {
                 this.hasOutput = true;
               }
             }
             const itemObj: IDisplayed = new Displayed();
             itemObj.name = workBook.SheetNames[i];
-            if(itemObj.displayList === undefined){
+            if (itemObj.displayList === undefined) {
               itemObj.displayList = [];
             }
             itemObj.displayList.push(this.invoices);
@@ -172,7 +171,7 @@ export class AppComponent implements OnInit {
         }
       } else {
         this.invoices = [];
-        jsonArr[workBook.SheetNames[0]].forEach(obj => {
+        jsonArr[workBook.SheetNames[0]].forEach((obj) => {
           const invoiceObj = this.invoiceKeyList.reduce((carry, item) => {
             carry[item] = undefined;
             return carry;
@@ -180,7 +179,7 @@ export class AppComponent implements OnInit {
 
           let isObjNotEmpty = false;
           for (var key in obj) {
-            this.invoiceKeyList.forEach(k => {
+            this.invoiceKeyList.forEach((k) => {
               // console.log("key: " + key + ", value: " + obj[key])
               // console.log("k: " + k + ", value: " + invoiceObj[k]);
               // console.log(key === k);
@@ -201,21 +200,24 @@ export class AppComponent implements OnInit {
         });
         this.countLineNO();
         if (this.invoices.length > 0) {
-          this.excelService.exportAsExcelFile(this.invoices, this.exportFileName, !this.isAutoDowload);
+          this.excelService.exportAsExcelFile(
+            this.invoices,
+            this.exportFileName,
+            !this.isAutoDowload
+          );
           this.outputList.push(this.invoices);
-          if(this.isAutoDowload){
-            if(this.checkIfOutputListNotEmpty()){
+          if (this.isAutoDowload) {
+            if (this.checkIfOutputListNotEmpty()) {
               this.isShowDownloadBtn = true;
             }
-          }
-          else{
-            if(this.checkIfOutputListNotEmpty()){
+          } else {
+            if (this.checkIfOutputListNotEmpty()) {
               this.hasOutput = true;
             }
           }
           const itemObj: IDisplayed = new Displayed();
           itemObj.name = workBook.SheetNames[0];
-          if(itemObj.displayList === undefined){
+          if (itemObj.displayList === undefined) {
             itemObj.displayList = [];
           }
           itemObj.displayList.push(this.invoices);
@@ -236,11 +238,10 @@ export class AppComponent implements OnInit {
     reader.readAsBinaryString(file);
   }
 
-  checkIfOutputListNotEmpty(): boolean{
-    if(this.outputList.length > 0){
+  checkIfOutputListNotEmpty(): boolean {
+    if (this.outputList.length > 0) {
       return true;
-    }
-    else{
+    } else {
       return false;
     }
   }
@@ -287,13 +288,14 @@ export class AppComponent implements OnInit {
     console.log(i);
   }
 
-  cancelEditing(): void{
-    const storageList: Array<string []> = JSON.parse(localStorage.getItem(this.storageName));
-    if(storageList !== null){
+  cancelEditing(): void {
+    const storageList: Array<string[]> = JSON.parse(
+      localStorage.getItem(this.storageName)
+    );
+    if (storageList !== null) {
       this.allFiledNameList = storageList;
       this.invoiceKeyList = storageList[this.editingIndex];
-    }
-    else{
+    } else {
       this.allFiledNameList[this.editingIndex] = this.createADefaultKeyObj();
       this.invoiceKeyList = this.allFiledNameList[this.editingIndex];
     }
@@ -301,28 +303,35 @@ export class AppComponent implements OnInit {
     this.editingIndex = undefined;
   }
 
-  saveEditing(): void{
+  saveEditing(): void {
     this.isEdit = false;
-    localStorage.setItem(this.storageName, JSON.stringify(this.allFiledNameList));
+    localStorage.setItem(
+      this.storageName,
+      JSON.stringify(this.allFiledNameList)
+    );
   }
 
-  restoreFieldName(): void{
+  restoreFieldName(): void {
     this.invoiceKeyList = this.createADefaultKeyObj();
-    this.isAdding = false
-  }
-
-  clearAllFieldName(): void{
-    this.invoiceKeyList = [];
+    this.allFiledNameList[this.editingIndex] = this.invoiceKeyList;
     this.isAdding = false;
   }
 
-  createADefaultKeyObjGlobally(): void{
+  clearAllFieldName(): void {
+    this.invoiceKeyList = [];
+    this.allFiledNameList[this.editingIndex] = this.invoiceKeyList;
+    this.isAdding = false;
+  }
+
+  createADefaultKeyObjGlobally(): void {
     const invoice = new Invoice();
+    console.log(invoice);
     this.invoiceKeyList = Object.keys(invoice);
+    console.log(this.invoiceKeyList);
     this.allFiledNameList.push(this.invoiceKeyList);
   }
 
-  createADefaultKeyObj(): string[]{
+  createADefaultKeyObj(): string[] {
     const invoice = new Invoice();
     const invoiceKeys: string[] = Object.keys(invoice);
     return invoiceKeys;
@@ -358,12 +367,10 @@ export class AppComponent implements OnInit {
         if (!this.isSportMode) {
           this.isAdding = false;
         }
-      }
-      else{
+      } else {
         this.addShakingAnimation('add-input');
       }
-    }
-    else{
+    } else {
       this.addShakingAnimation('add-input');
     }
   }
@@ -387,49 +394,49 @@ export class AppComponent implements OnInit {
       if (this.tempName !== '') {
         this.exportFileName = this.tempName;
         this.isEditExportFileName = false;
-      }
-      else{
+      } else {
         this.addShakingAnimation('file-name-input-group');
       }
-    }
-    else{
+    } else {
       this.addShakingAnimation('file-name-input-group');
     }
   }
 
-  changeAutoDowload(): void{
+  changeAutoDowload(): void {
     this.isAutoDowload = !this.isAutoDowload;
   }
 
-  dowloadTheFile(index: number): void{
+  dowloadTheFile(index: number): void {
     // this.excelService.exportAsExcelFile(item, this.exportFileName, false);
-    this.excelService.exportAsExcelFile(this.outputList[index], this.exportFileName, false);
+    this.excelService.exportAsExcelFile(
+      this.outputList[index],
+      this.exportFileName,
+      false
+    );
   }
 
-  showDownloadFileBtn(): void{
-    
+  showDownloadFileBtn(): void {
     console.log(this.checkIfOutputListNotEmpty());
-    if(this.checkIfOutputListNotEmpty()){
+    if (this.checkIfOutputListNotEmpty()) {
       this.isShowDownloadBtn = false;
       this.hasOutput = true;
-    }
-    else{
+    } else {
       const msgObj = new ErrorMsg();
-      msgObj.msg = 'Sorry! There is no files'
+      msgObj.msg = 'Sorry! There is no files';
       msgObj.isDisplayed = true;
-      if(this.errorMsg === undefined){
+      if (this.errorMsg === undefined) {
         this.errorMsg = [];
       }
       this.errorMsg.push(msgObj);
     }
   }
 
-  addShakingAnimation(targetId: string): void{
-    document.getElementById(targetId)?.classList.add("animate__animated");
-    document.getElementById(targetId)?.classList.add("animate__headShake");
-    setTimeout(()=> {
-      document.getElementById(targetId)?.classList.remove("animate__headShake");
-      document.getElementById(targetId)?.classList.remove("animate__headShake");
+  addShakingAnimation(targetId: string): void {
+    document.getElementById(targetId)?.classList.add('animate__animated');
+    document.getElementById(targetId)?.classList.add('animate__headShake');
+    setTimeout(() => {
+      document.getElementById(targetId)?.classList.remove('animate__headShake');
+      document.getElementById(targetId)?.classList.remove('animate__headShake');
     }, 500);
   }
 }

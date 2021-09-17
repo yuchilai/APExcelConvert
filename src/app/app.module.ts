@@ -8,8 +8,9 @@ import { AppComponent } from './app.component';
 import { HelloComponent } from './hello.component';
 import { ExcelService } from './service/excel.service';
 
+
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, DragDropModule, BrowserAnimationsModule, ],
+  imports:      [ BrowserModule, FormsModule, DragDropModule, BrowserAnimationsModule],
   declarations: [ AppComponent, HelloComponent ],
   bootstrap:    [ AppComponent ],
   providers: [ExcelService]
