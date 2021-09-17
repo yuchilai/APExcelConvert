@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
-      this.isEdit = false;
+      this.cancelEditing();
     }
   }
 
@@ -331,7 +331,7 @@ export class AppComponent implements OnInit {
         }
       });
     } else {
-      if(this.inputToBeAdded === ''){
+      if (this.inputToBeAdded === '') {
         this.inputToBeAdded = undefined;
       }
       this.sync();
@@ -355,7 +355,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  sync(): void{
+  sync(): void {
     const storageList: Array<string[]> = JSON.parse(
       localStorage.getItem(this.storageName)
     );
@@ -382,12 +382,14 @@ export class AppComponent implements OnInit {
   restoreFieldName(): void {
     this.invoiceKeyList = this.createADefaultKeyObj();
     this.allFiledNameList[this.editingIndex] = this.invoiceKeyList;
+    this.inputToBeAdded = undefined;
     this.isAdding = false;
   }
 
   clearAllFieldName(): void {
     this.invoiceKeyList = [];
     this.allFiledNameList[this.editingIndex] = this.invoiceKeyList;
+    this.inputToBeAdded = undefined;
     this.isAdding = false;
   }
 
