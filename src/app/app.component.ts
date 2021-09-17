@@ -314,7 +314,10 @@ export class AppComponent implements OnInit {
   cancelEditing(): void {
     console.log(this.inputToBeAdded === '');
     console.log(this.inputToBeAdded === null);
-    if (this.inputToBeAdded !== undefined && this.inputToBeAdded !== '' || this.isChanged) {
+    if (
+      (this.inputToBeAdded !== undefined && this.inputToBeAdded !== '') ||
+      this.isChanged
+    ) {
       Swal.fire({
         title: 'Do you want to save the changes?',
         showDenyButton: true,
@@ -324,13 +327,14 @@ export class AppComponent implements OnInit {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          if(this.inputToBeAdded !== undefined){
+          if (this.inputToBeAdded !== undefined) {
             this.saveInvoiceColumn();
           }
           this.saveEditing();
           Swal.fire('Saved!', '', 'success');
         } else if (result.isDenied) {
           this.inputToBeAdded = undefined;
+          this.isChanged = false;
           this.cancelEditing();
           Swal.fire('Changes are not saved', '', 'info');
         }
@@ -390,6 +394,7 @@ export class AppComponent implements OnInit {
     this.allFiledNameList[this.editingIndex] = this.invoiceKeyList;
     this.inputToBeAdded = undefined;
     this.isAdding = false;
+    this.isChanged = true;
   }
 
   clearAllFieldName(): void {
@@ -397,6 +402,7 @@ export class AppComponent implements OnInit {
     this.allFiledNameList[this.editingIndex] = this.invoiceKeyList;
     this.inputToBeAdded = undefined;
     this.isAdding = false;
+    this.isChanged = true;
   }
 
   createADefaultKeyObjGlobally(): void {
@@ -427,6 +433,7 @@ export class AppComponent implements OnInit {
 
   delItems(i: number): void {
     this.invoiceKeyList.splice(i, 1);
+    this.isChanged = true;
     this.isAdding = false;
   }
 
