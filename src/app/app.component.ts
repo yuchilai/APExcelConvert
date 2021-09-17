@@ -349,6 +349,18 @@ export class AppComponent implements OnInit {
     console.log(i);
   }
 
+  deletObjFromList(i: number, item: string[]): void {
+    this.allFiledNameList.splice(i, 1);
+    localStorage.setItem(
+      this.storageName,
+      JSON.stringify(this.allFiledNameList)
+    );
+    this.Toast.fire({
+      icon: 'success',
+      title: 'Deleted!',
+    });
+  }
+
   cancelEditing(): void {
     console.log(this.inputToBeAdded === '');
     console.log(this.inputToBeAdded === null);
@@ -408,15 +420,21 @@ export class AppComponent implements OnInit {
   }
 
   sync(): void {
+    console.log(this.editingIndex);
     const storageList: Array<string[]> = JSON.parse(
       localStorage.getItem(this.storageName)
     );
     if (storageList !== null) {
       this.allFiledNameList = storageList;
-      this.invoiceKeyList = storageList[this.editingIndex];
+      if (this.editingIndex !== undefined && this.editingIndex > -1) {
+        this.invoiceKeyList = storageList[this.editingIndex];
+      }
     } else {
-      this.allFiledNameList[this.editingIndex] = this.createADefaultKeyObj();
-      this.invoiceKeyList = this.allFiledNameList[this.editingIndex];
+      if (this.editingIndex !== undefined && this.editingIndex > -1) {
+        this.allFiledNameList[this.editingIndex] = this.createADefaultKeyObj();
+        this.invoiceKeyList = this.allFiledNameList[this.editingIndex];
+        console.log(this.allFiledNameList);
+      }
     }
     this.isEdit = false;
     this.editingIndex = undefined;
@@ -424,15 +442,18 @@ export class AppComponent implements OnInit {
 
   saveEditing(): void {
     this.isEdit = false;
+    if (this.editingIndex === -1) {
+      this.allFiledNameList.push(this.invoiceKeyList);
+    }
     localStorage.setItem(
       this.storageName,
       JSON.stringify(this.allFiledNameList)
     );
-    this.sync();
     this.Toast.fire({
       icon: 'success',
       title: 'Saved!',
     });
+    this.sync();
   }
 
   restoreFieldName(): void {

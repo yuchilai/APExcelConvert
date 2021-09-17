@@ -256,7 +256,14 @@
       >
         <div class="btn-box">
           <button
-            *ngIf="!isEdit"
+            type="button"
+            class="btn btn-danger"
+            id="displayed-delete-btn"
+            (click)="deletObjFromList(i, listObj)"
+          >
+            Delete
+          </button>
+          <button
             type="button"
             class="btn btn-primary"
             id="displayed-edit-btn"

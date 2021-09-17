@@ -86,6 +86,17 @@ p {
   background-color: rgb(83, 64, 255);
 }
 
+#displayed-delete-btn {
+  border: solid 1px #ff5340;
+  background-color: #ff5340;
+}
+
+#displayed-delete-btn:hover {
+  background-color: #f73620;
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.09);
+}
+
 #displayed-edit-btn:hover {
   background-color: #1800f3;
   transition: all 0.2s ease-in-out;
@@ -186,6 +197,7 @@ p {
   width: 400px;
   max-width: 100%;
   border-radius: 5px 5px 0 0;
+  gap: 10px;
 }
 
 #arrow-return-left-icon {
@@ -329,11 +341,11 @@ p {
   /* position: relative; */
 }
 
-#unblank-icon{
+#unblank-icon {
   cursor: pointer;
 }
 
-#blank-icon{
+#blank-icon {
   cursor: pointer;
 }
 
