@@ -23,6 +23,9 @@ export class AppComponent implements OnInit {
   @ViewChild('myInput')
   myInputVariable: ElementRef;
 
+  @ViewChild('editArea')
+  editArea: ElementRef;
+
   name = 'Certify to Sage Intacct AP Invoices Converter';
   willDownload = false;
   invoiceKeyList: string[] = [];
@@ -50,6 +53,19 @@ export class AppComponent implements OnInit {
   storageName = 'gccny_ap_field_name';
   editingIndex?: number;
   isChanged?: boolean;
+  isCreatingBtnAppeared = false;
+
+  Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
 
   constructor(private excelService: ExcelService) {}
 
@@ -63,8 +79,11 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // const foo = ['123', '321', '123', '1234567', 'cassie'];
     // this.allFiledNameList.push(foo);
-    // localStorage.setItem(this.storageName, JSON.stringify(this.allFiledNameList));
-    //HERE HAS TO HAVE SELECTED INDEX FOR DEFUALT 'invoiceKeyList'
+    // localStorage.setItem(
+    //   this.storageName,
+    //   JSON.stringify(this.allFiledNameList)
+    // );
+    // HERE HAS TO HAVE SELECTED INDEX FOR DEFUALT 'invoiceKeyList'
     const checkPoint = localStorage.getItem(this.storageName);
     if (checkPoint !== null && checkPoint.length > 0) {
       const filedNameListFromStorage: Array<string[]> = JSON.parse(checkPoint);
@@ -171,7 +190,7 @@ export class AppComponent implements OnInit {
             this.checkIfOutputListNotEmpty();
             const Toast = Swal.mixin({
               toast: true,
-              position: 'bottom-end',
+              position: 'top-end',
               showConfirmButton: false,
               timer: 10000,
               timerProgressBar: true,
@@ -252,6 +271,25 @@ export class AppComponent implements OnInit {
           msgObj.isDisplayed = true;
           this.errorMsg.push(msgObj);
           this.checkIfOutputListNotEmpty();
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 10000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            },
+          });
+
+          Toast.fire({
+            icon: 'error',
+            title:
+              'File: ' +
+              this.fileName +
+              'some of sheets do not convert successfully or something went wrong! Please see the deatil above!',
+          });
         }
       }
       this.resetFile();
@@ -331,12 +369,16 @@ export class AppComponent implements OnInit {
             this.saveInvoiceColumn();
           }
           this.saveEditing();
-          Swal.fire('Saved!', '', 'success');
+          // Swal.fire('Saved!', '', 'success');
         } else if (result.isDenied) {
           this.inputToBeAdded = undefined;
           this.isChanged = false;
           this.cancelEditing();
-          Swal.fire('Changes are not saved', '', 'info');
+          // Swal.fire('Changes are not saved', '', 'info');
+          this.Toast.fire({
+            icon: 'info',
+            title: 'Changes are not saved',
+          });
         }
       });
     } else {
@@ -387,6 +429,10 @@ export class AppComponent implements OnInit {
       JSON.stringify(this.allFiledNameList)
     );
     this.sync();
+    this.Toast.fire({
+      icon: 'success',
+      title: 'Saved!',
+    });
   }
 
   restoreFieldName(): void {
@@ -497,6 +543,28 @@ export class AppComponent implements OnInit {
     }
   }
 
+  showCreatingBtn(): void {
+    this.isCreatingBtnAppeared = !this.isCreatingBtnAppeared;
+  }
+
+  createBlankKey(event): void {
+    event.stopPropagation();
+    this.isCreatingBtnAppeared = false;
+    this.editOrder(-1, []);
+    this.editArea.nativeElement.scrollIntoView({
+      behavior: 'smooth',
+    });
+  }
+
+  createUnblankKey(event): void {
+    event.stopPropagation();
+    this.isCreatingBtnAppeared = false;
+    this.editOrder(-1, this.createADefaultKeyObj());
+    this.editArea.nativeElement.scrollIntoView({
+      behavior: 'smooth',
+    });
+  }
+
   addShakingAnimation(targetId: string): void {
     document.getElementById(targetId)?.classList.add('animate__animated');
     document.getElementById(targetId)?.classList.add('animate__headShake');
@@ -505,4 +573,9 @@ export class AppComponent implements OnInit {
       document.getElementById(targetId)?.classList.remove('animate__headShake');
     }, 500);
   }
+
+  scroll(el: HTMLElement) {
+    el.scrollIntoView();
+  }
+  // scroll() {}
 }
