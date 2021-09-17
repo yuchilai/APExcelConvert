@@ -84,9 +84,31 @@ export class AppComponent implements OnInit {
     //   JSON.stringify(this.allFiledNameList)
     // );
     // HERE HAS TO HAVE SELECTED INDEX FOR DEFUALT 'invoiceKeyList'
-    const checkPoint = localStorage.getItem(this.storageName);
-    if (checkPoint !== null && checkPoint.length > 0) {
-      const filedNameListFromStorage: Array<string[]> = JSON.parse(checkPoint);
+    // const checkPoint = localStorage.getItem(this.storageName);
+    // console.log(checkPoint.length);
+    // console.log(checkPoint === null);
+    // console.log(checkPoint);
+    // if (checkPoint !== null && checkPoint.length > 0) {
+    //   const filedNameListFromStorage: Array<string[]> = JSON.parse(checkPoint);
+    //   console.log(filedNameListFromStorage.length);
+    //   if (filedNameListFromStorage instanceof Array) {
+    //     filedNameListFromStorage.forEach((strList) => {
+    //       this.allFiledNameList.push(strList);
+    //     });
+    //   }
+    // } else {
+    //   this.createADefaultKeyObjGlobally();
+    // }
+
+    console.log(JSON.parse(localStorage.getItem(this.storageName)) !== null);
+    console.log(JSON.parse(localStorage.getItem(this.storageName))?.length > 0);
+    if (
+      JSON.parse(localStorage.getItem(this.storageName)) !== null &&
+      JSON.parse(localStorage.getItem(this.storageName))?.length > 0
+    ) {
+      const filedNameListFromStorage: Array<string[]> = JSON.parse(
+        localStorage.getItem(this.storageName)
+      );
       if (filedNameListFromStorage instanceof Array) {
         filedNameListFromStorage.forEach((strList) => {
           this.allFiledNameList.push(strList);
@@ -94,6 +116,13 @@ export class AppComponent implements OnInit {
       }
     } else {
       this.createADefaultKeyObjGlobally();
+      if (JSON.parse(localStorage.getItem(this.storageName))?.length === 0) {
+        console.log(this.allFiledNameList);
+        localStorage.setItem(
+          this.storageName,
+          JSON.stringify(this.allFiledNameList)
+        );
+      }
     }
     console.log(this.allFiledNameList);
   }
@@ -350,14 +379,32 @@ export class AppComponent implements OnInit {
   }
 
   deletObjFromList(i: number, item: string[]): void {
-    this.allFiledNameList.splice(i, 1);
-    localStorage.setItem(
-      this.storageName,
-      JSON.stringify(this.allFiledNameList)
-    );
-    this.Toast.fire({
-      icon: 'success',
-      title: 'Deleted!',
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown',
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp',
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.allFiledNameList.splice(i, 1);
+        localStorage.setItem(
+          this.storageName,
+          JSON.stringify(this.allFiledNameList)
+        );
+        this.Toast.fire({
+          icon: 'success',
+          title: 'Deleted!',
+        });
+      }
     });
   }
 
