@@ -643,6 +643,15 @@ export class AppComponent implements OnInit {
       if (this.tempName !== '') {
         this.exportFileName = this.tempName;
         this.isEditExportFileName = false;
+        let cb: IBehavior = this.behavior;
+        if (cb !== undefined) {
+          cb.fileName = this.exportFileName;
+        } else {
+          cb = new Behavior();
+          cb.fileName = this.exportFileName;
+        }
+        this.behavior = cb;
+        localStorage.setItem(this.storageCB, JSON.stringify(this.behavior));
       } else {
         this.addShakingAnimation('file-name-input-group');
       }
