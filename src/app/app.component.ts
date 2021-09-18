@@ -55,10 +55,13 @@ export class AppComponent implements OnInit {
   isShowDownloadBtn = false;
   allFiledNameList: Array<string[]> = [];
   storageName = 'gccny_ap_field_name';
+  storageIndex = 'gccny_ap_selected_index';
   editingIndex?: number;
   isChanged?: boolean;
   isCreatingBtnAppeared = false;
   selectedIndex?: number;
+  selectedKeyList?: string[];
+  isEditingLayout = false;
 
   Toast = Swal.mixin({
     toast: true,
@@ -638,10 +641,10 @@ export class AppComponent implements OnInit {
     });
   }
 
-  setSelectedIndexForLayout(i: number): void {
-    console.log(i);
-    console.log(this.selectedIndex);
+  setSelectedIndexForLayout(i: number, items: string[]): void {
     this.selectedIndex = i;
+    this.selectedKeyList = items;
+    localStorage.setItem(this.storageIndex, String(i));
   }
 
   scrollToLayoutList(i: number): void {

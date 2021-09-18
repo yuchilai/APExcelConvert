@@ -167,12 +167,12 @@
       </div>
     </div>
 
-    <div class="control-layout">
-      <div
-        *ngFor="let items of allFiledNameList; let i = index"
-        class="layout-btn-box"
-      >
-        <div class="layout-radio-btn">
+    <div *ngIf="isEditingLayout" class="control-layout">
+      <div class="layout-btn-box">
+        <div
+          *ngFor="let items of allFiledNameList; let i = index"
+          class="layout-radio-btn"
+        >
           <input
             type="radio"
             class="btn-check"
@@ -181,21 +181,18 @@
             autocomplete="off"
             [checked]="i === selectedIndex"
             [value]="i"
-            (click)="setSelectedIndexForLayout(i)"
+            (click)="setSelectedIndexForLayout(i, items)"
           />
           <label class="btn btn-outline-success" for="success-outlined{{ i }}"
             >{{ i + 1 }}
           </label>
         </div>
-        <div class="layout-detail-box">
-          <div *ngIf="i === selectedIndex" class="layout-list-name">
-            <div *ngFor="let name of items" class="cell">
-              {{ name }}
-            </div>
-          </div>
+      </div>
+      <div class="layout-detail-container">
+        <div *ngFor="let name of selectedKeyList" class="cell">
+          {{ name }}
         </div>
       </div>
-      <!-- <div class="layout-line"></div> -->
     </div>
 
     <div class="mb-3">
