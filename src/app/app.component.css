@@ -385,16 +385,43 @@ p {
   visibility: hidden;
 }
 
+.for-sticky-here {
+  position: relative;
+}
+
 .control-layout {
   position: relative;
-  display: flex;
   min-width: 300px;
   min-height: 350px;
   flex-wrap: wrap;
   overflow-wrap: break-word;
+  margin: 50px 0;
+  overflow: auto;
+  display: flex;
+}
+
+.layout-radio-btn {
+  position: -webkit-sticky;
+  position: sticky;
+  align-self: flex-start; /* <-- this is the fix */
+  top: 0;
+  left: 0;
+}
+
+.btn-check {
+  background-color: white;
 }
 
 .layout-btn-box {
+  display: inline-block;
+}
+
+.layout-line {
+  border: #000508 solid 1px;
+  background-color: #1800f3;
+  width: 80%;
+  position: absolute;
+  right: 0;
 }
 
 .layout-detail-box {
@@ -403,7 +430,9 @@ p {
 .layout-list-name {
   position: absolute;
   left: 0;
-  top: 38px;
+  top: 40px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .list-number {
@@ -419,6 +448,13 @@ p {
   font-size: 1.2rem;
 }
 
+.cell {
+  border: #000508 1px solid;
+  padding: 20px 10px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
@@ -427,4 +463,24 @@ p {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
 }

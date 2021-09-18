@@ -169,7 +169,7 @@
 
     <div class="control-layout">
       <div
-        *ngFor="let item of allFiledNameList; let i = index"
+        *ngFor="let items of allFiledNameList; let i = index"
         class="layout-btn-box"
       >
         <div class="layout-radio-btn">
@@ -189,25 +189,13 @@
         </div>
         <div class="layout-detail-box">
           <div *ngIf="i === selectedIndex" class="layout-list-name">
-            <a
-              *ngIf="item.length > 0"
-              (click)="scrollToLayoutList(i)"
-              data-toggle="tooltip"
-              title="Click to view detail"
-              >{{ item.length > 6 ? (item | slice: 0:100) + ' ...' : item }}
-            </a>
-            <a
-              class="empty-red"
-              *ngIf="item.length < 1"
-              (click)="scrollToLayoutList(i)"
-              data-toggle="tooltip"
-              title="Click to view detail"
-            >
-              Empty List
-            </a>
+            <div *ngFor="let name of items" class="cell">
+              {{ name }}
+            </div>
           </div>
         </div>
       </div>
+      <!-- <div class="layout-line"></div> -->
     </div>
 
     <div class="mb-3">
