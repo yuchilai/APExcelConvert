@@ -15,6 +15,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ErrorMsg, IErrorMsg } from './errorMsg.model';
 import { Displayed, IDisplayed } from './displayed.model';
 import Swal from 'sweetalert2';
+import { Behavior, IBehavior } from './behavior.model';
 
 @Component({
   selector: 'my-app',
@@ -56,6 +57,7 @@ export class AppComponent implements OnInit {
   allFiledNameList: Array<string[]> = [];
   storageName = 'gccny_ap_field_name';
   storageIndex = 'gccny_ap_selected_index';
+  storageCB = 'gccny_ap_customer_behavior';
   editingIndex?: number;
   isChanged?: boolean;
   isCreatingBtnAppeared = false;
@@ -63,6 +65,7 @@ export class AppComponent implements OnInit {
   selectedKeyList?: string[];
   displayedDefaultKeyList?: string[];
   isEditingLayout = false;
+  behavior?: IBehavior;
 
   Toast = Swal.mixin({
     toast: true,
@@ -148,6 +151,26 @@ export class AppComponent implements OnInit {
       } else {
         this.selectedIndex = 0;
         this.selectedKeyList = this.invoiceKeyList;
+      }
+    }
+
+    if (JSON.parse(localStorage.getItem(this.storageCB)) !== null) {
+      this.behavior = JSON.parse(localStorage.getItem(this.storageCB));
+      if (
+        this.behavior.fileName !== undefined &&
+        this.behavior.fileName !== ''
+      ) {
+        this.exportFileName = this.behavior.fileName;
+        this.tempName = this.behavior.fileName;
+      }
+      if (this.behavior.auto !== undefined) {
+        this.isAutoDowload = this.behavior.auto;
+      }
+      if (this.behavior.fileAccepted !== undefined) {
+        this.isExcelOnly = this.behavior.fileAccepted;
+      }
+      if (this.behavior.addingMode !== undefined) {
+        this.isSportMode = this.behavior.addingMode;
       }
     }
     console.log(this.allFiledNameList);
@@ -563,6 +586,15 @@ export class AppComponent implements OnInit {
 
   changeAcceptedFile(): void {
     this.isExcelOnly = !this.isExcelOnly;
+    let cb: IBehavior = this.behavior;
+    if (cb !== undefined) {
+      cb.fileAccepted = this.isExcelOnly;
+    } else {
+      cb = new Behavior();
+      cb.fileAccepted = this.isExcelOnly;
+    }
+    this.behavior = cb;
+    localStorage.setItem(this.storageCB, JSON.stringify(this.behavior));
   }
 
   closeErrorMsg(item: IErrorMsg): void {
@@ -585,6 +617,15 @@ export class AppComponent implements OnInit {
 
   changeMode(): void {
     this.isSportMode = !this.isSportMode;
+    let cb: IBehavior = this.behavior;
+    if (cb !== undefined) {
+      cb.addingMode = this.isSportMode;
+    } else {
+      cb = new Behavior();
+      cb.addingMode = this.isSportMode;
+    }
+    this.behavior = cb;
+    localStorage.setItem(this.storageCB, JSON.stringify(this.behavior));
   }
 
   editExportFileName(): void {
@@ -612,6 +653,15 @@ export class AppComponent implements OnInit {
 
   changeAutoDowload(): void {
     this.isAutoDowload = !this.isAutoDowload;
+    let cb: IBehavior = this.behavior;
+    if (cb !== undefined) {
+      cb.auto = this.isAutoDowload;
+    } else {
+      cb = new Behavior();
+      cb.auto = this.isAutoDowload;
+    }
+    this.behavior = cb;
+    localStorage.setItem(this.storageCB, JSON.stringify(this.behavior));
   }
 
   dowloadTheFile(index: number): void {
