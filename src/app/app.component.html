@@ -167,6 +167,49 @@
       </div>
     </div>
 
+    <div class="control-layout">
+      <div
+        *ngFor="let item of allFiledNameList; let i = index"
+        class="layout-btn-box"
+      >
+        <div class="layout-radio-btn">
+          <input
+            type="radio"
+            class="btn-check"
+            name="options-outlined"
+            id="success-outlined{{ i }}"
+            autocomplete="off"
+            [checked]="i === selectedIndex"
+            [value]="i"
+            (click)="setSelectedIndexForLayout(i)"
+          />
+          <label class="btn btn-outline-success" for="success-outlined{{ i }}"
+            >{{ i + 1 }}
+          </label>
+        </div>
+        <div class="layout-detail-box">
+          <div *ngIf="i === selectedIndex" class="layout-list-name">
+            <a
+              *ngIf="item.length > 0"
+              (click)="scrollToLayoutList(i)"
+              data-toggle="tooltip"
+              title="Click to view detail"
+              >{{ item.length > 6 ? (item | slice: 0:100) + ' ...' : item }}
+            </a>
+            <a
+              class="empty-red"
+              *ngIf="item.length < 1"
+              (click)="scrollToLayoutList(i)"
+              data-toggle="tooltip"
+              title="Click to view detail"
+            >
+              Empty List
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="mb-3">
       <label for="formFile" class="form-label"
         >Choose your invoice File: (accept file: .xlsx .cvs .xlsm .xls)
@@ -253,8 +296,10 @@
       <div
         *ngFor="let listObj of allFiledNameList; let i = index"
         class="displayed-list-container"
+        #layoutList
       >
         <div class="btn-box">
+          <span class="list-number">{{ i + 1 }}.</span>
           <button
             type="button"
             class="btn btn-danger"

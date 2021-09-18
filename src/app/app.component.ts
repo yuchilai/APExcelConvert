@@ -5,6 +5,8 @@ import {
   ViewChild,
   HostListener,
   OnInit,
+  ViewChildren,
+  QueryList,
 } from '@angular/core';
 import { ExcelService } from './service/excel.service';
 import * as XLSX from 'xlsx';
@@ -25,6 +27,8 @@ export class AppComponent implements OnInit {
 
   @ViewChild('editArea')
   editArea: ElementRef;
+
+  @ViewChildren('layoutList') layoutList: QueryList<ElementRef>;
 
   name = 'Certify to Sage Intacct AP Invoices Converter';
   willDownload = false;
@@ -54,6 +58,7 @@ export class AppComponent implements OnInit {
   editingIndex?: number;
   isChanged?: boolean;
   isCreatingBtnAppeared = false;
+  selectedIndex?: number;
 
   Toast = Swal.mixin({
     toast: true,
@@ -630,6 +635,26 @@ export class AppComponent implements OnInit {
     this.editOrder(-1, this.createADefaultKeyObj());
     this.editArea.nativeElement.scrollIntoView({
       behavior: 'smooth',
+    });
+  }
+
+  setSelectedIndexForLayout(i: number): void {
+    console.log(i);
+    console.log(this.selectedIndex);
+    this.selectedIndex = i;
+  }
+
+  scrollToLayoutList(i: number): void {
+    this.layoutList[i];
+    console.log(this.layoutList);
+    this.layoutList.forEach((item, index) => {
+      console.log(item.nativeElement);
+      console.log(index);
+      if (i === index) {
+        item.nativeElement.scrollIntoView({
+          behavior: 'smooth',
+        });
+      }
     });
   }
 

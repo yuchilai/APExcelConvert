@@ -385,6 +385,40 @@ p {
   visibility: hidden;
 }
 
+.control-layout {
+  position: relative;
+  display: flex;
+  min-width: 300px;
+  min-height: 350px;
+  flex-wrap: wrap;
+  overflow-wrap: break-word;
+}
+
+.layout-btn-box {
+}
+
+.layout-detail-box {
+}
+
+.layout-list-name {
+  position: absolute;
+  left: 0;
+  top: 38px;
+}
+
+.list-number {
+  margin: 0 5px;
+  padding: 5px;
+  flex-grow: 3;
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+
+.empty-red {
+  font-weight: bolder;
+  font-size: 1.2rem;
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
