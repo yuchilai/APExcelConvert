@@ -2,7 +2,6 @@
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
 />
-
 <div class="whole-continaer">
   <div class="excel-img-box">
     <img
@@ -167,27 +166,53 @@
       </div>
     </div>
 
-    <div *ngIf="isEditingLayout" class="control-layout">
+    <div class="default-layout-box">
+      <div class="default-box"></div>
+    </div>
+
+    <div class="control-layout">
+      <!-- *ngIf="isEditingLayout" -->
       <div class="layout-btn-box">
         <div
           *ngFor="let items of allFiledNameList; let i = index"
           class="layout-radio-btn"
         >
-          <input
-            type="radio"
-            class="btn-check"
-            name="options-outlined"
-            id="success-outlined{{ i }}"
-            autocomplete="off"
-            [checked]="i === selectedIndex"
-            [value]="i"
-            (click)="setSelectedIndexForLayout(i, items)"
-          />
-          <label class="btn btn-outline-success" for="success-outlined{{ i }}"
-            >{{ i + 1 }}
-          </label>
+          <div class="layout-group-radio">
+            <input
+              type="radio"
+              class="btn-check"
+              name="options-outlined"
+              id="success-outlined{{ i }}"
+              autocomplete="off"
+              [checked]="i === selectedIndex"
+              [value]="i"
+              (click)="setSelectedIndexForLayout(i, items)"
+            />
+            <label class="btn btn-outline-success" for="success-outlined{{ i }}"
+              >{{ i + 1 }}
+            </label>
+          </div>
+          <div
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="Click to view detail"
+            class="view-detail"
+            (click)="scrollToLayoutList(i)"
+          >
+            <span class="view">Detail</span>
+          </div>
         </div>
       </div>
+      <!-- <div *ngIf="!isEditingLayout" class="default-btn">
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="displayed-edit-btn"
+          (click)="editDeaultLayout()"
+        >
+          Edit default layout
+        </button>
+      </div> -->
       <div class="layout-detail-container">
         <div *ngFor="let name of selectedKeyList" class="cell">
           {{ name }}

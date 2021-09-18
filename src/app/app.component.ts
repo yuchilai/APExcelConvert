@@ -61,6 +61,7 @@ export class AppComponent implements OnInit {
   isCreatingBtnAppeared = false;
   selectedIndex?: number;
   selectedKeyList?: string[];
+  displayedDefaultKeyList?: string[];
   isEditingLayout = false;
 
   Toast = Swal.mixin({
@@ -130,6 +131,23 @@ export class AppComponent implements OnInit {
           this.storageName,
           JSON.stringify(this.allFiledNameList)
         );
+      }
+    }
+
+    if (localStorage.getItem(this.storageIndex) !== null) {
+      const index = Number(localStorage.getItem(this.storageIndex));
+      console.log(index);
+      console.log(typeof index);
+      if (
+        index !== NaN &&
+        index > -1 &&
+        index < this.allFiledNameList?.length
+      ) {
+        this.selectedIndex = index;
+        this.selectedKeyList = this.allFiledNameList[this.selectedIndex];
+      } else {
+        this.selectedIndex = 0;
+        this.selectedKeyList = this.invoiceKeyList;
       }
     }
     console.log(this.allFiledNameList);
@@ -498,8 +516,12 @@ export class AppComponent implements OnInit {
   saveEditing(): void {
     this.isEdit = false;
     if (this.editingIndex === -1) {
+      this.selectedIndex = this.allFiledNameList.length;
       this.allFiledNameList.push(this.invoiceKeyList);
+    } else {
+      this.selectedIndex = this.editingIndex;
     }
+    this.selectedKeyList = this.invoiceKeyList;
     localStorage.setItem(
       this.storageName,
       JSON.stringify(this.allFiledNameList)
@@ -529,9 +551,7 @@ export class AppComponent implements OnInit {
 
   createADefaultKeyObjGlobally(): void {
     const invoice = new Invoice();
-    console.log(invoice);
     this.invoiceKeyList = Object.keys(invoice);
-    console.log(this.invoiceKeyList);
     this.allFiledNameList.push(this.invoiceKeyList);
   }
 
@@ -645,6 +665,11 @@ export class AppComponent implements OnInit {
     this.selectedIndex = i;
     this.selectedKeyList = items;
     localStorage.setItem(this.storageIndex, String(i));
+    this.invoiceKeyList = this.selectedKeyList;
+  }
+
+  editDeaultLayout(): void {
+    this.isEditingLayout = true;
   }
 
   scrollToLayoutList(i: number): void {

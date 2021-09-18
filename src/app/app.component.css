@@ -406,6 +406,28 @@ p {
   flex-direction: row;
 }
 
+.view-detail {
+  width: 35px;
+  margin: 0;
+  padding: 0;
+}
+
+.view {
+  font-size: 0.65em;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #4caf50;
+  width: 100%;
+  padding: 0.15em 0.35em;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  border: #fff solid 0.5px;
+}
+
 .for-animation {
   animation: flipInX;
   animation-duration: 2s;
