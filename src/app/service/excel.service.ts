@@ -20,11 +20,11 @@ export class ExcelService {
     console.log('worksheet', worksheet);
     const workbook: XLSX.WorkBook = {
       Sheets: { data: worksheet },
-      SheetNames: ['data']
+      SheetNames: ['data'],
     };
     const excelBuffer: any = XLSX.write(workbook, {
       bookType: 'xlsx',
-      type: 'array'
+      type: 'array',
     });
     //const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
     if (!isNotDowload) {
@@ -34,11 +34,20 @@ export class ExcelService {
 
   private saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], {
-      type: EXCEL_TYPE
+      type: EXCEL_TYPE,
     });
     FileSaver.saveAs(
       data,
-      fileName + '_Export_' + new Date().getTime() + EXCEL_EXTENSION
+      fileName +
+        '_Export_' +
+        new Date().getMonth() +
+        '-' +
+        new Date().getDate() +
+        '-' +
+        new Date().getFullYear() +
+        '_____' +
+        new Date().getTime() +
+        EXCEL_EXTENSION
     );
   }
 }
