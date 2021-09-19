@@ -112,8 +112,6 @@ export class AppComponent implements OnInit {
     //   this.createADefaultKeyObjGlobally();
     // }
 
-    console.log(JSON.parse(localStorage.getItem(this.storageName)) !== null);
-    console.log(JSON.parse(localStorage.getItem(this.storageName))?.length > 0);
     if (
       JSON.parse(localStorage.getItem(this.storageName)) !== null &&
       JSON.parse(localStorage.getItem(this.storageName))?.length > 0
@@ -129,7 +127,6 @@ export class AppComponent implements OnInit {
     } else {
       this.createADefaultKeyObjGlobally();
       if (JSON.parse(localStorage.getItem(this.storageName))?.length === 0) {
-        console.log(this.allFiledNameList);
         localStorage.setItem(
           this.storageName,
           JSON.stringify(this.allFiledNameList)
@@ -142,8 +139,6 @@ export class AppComponent implements OnInit {
 
     if (localStorage.getItem(this.storageIndex) !== null) {
       const index = Number(localStorage.getItem(this.storageIndex));
-      console.log(index);
-      console.log(typeof index);
       if (
         index !== NaN &&
         index > -1 &&
@@ -176,11 +171,9 @@ export class AppComponent implements OnInit {
         this.isSportMode = this.behavior.addingMode;
       }
     }
-    console.log(this.allFiledNameList);
   }
 
   onFileChange(ev) {
-    console.warn(this.invoiceKeyList);
     let workBook = null;
     let jsonData = null;
     const reader = new FileReader();
@@ -427,7 +420,6 @@ export class AppComponent implements OnInit {
     this.isAdding = false;
     this.editingIndex = i;
     this.isChanged = false;
-    console.log(i);
   }
 
   deletObjFromList(i: number, item: string[]): void {
@@ -461,8 +453,6 @@ export class AppComponent implements OnInit {
   }
 
   cancelEditing(): void {
-    console.log(this.inputToBeAdded === '');
-    console.log(this.inputToBeAdded === null);
     if (
       (this.inputToBeAdded !== undefined && this.inputToBeAdded !== '') ||
       this.isChanged
@@ -519,7 +509,6 @@ export class AppComponent implements OnInit {
   }
 
   sync(): void {
-    console.log(this.editingIndex);
     const storageList: Array<string[]> = JSON.parse(
       localStorage.getItem(this.storageName)
     );
@@ -532,7 +521,6 @@ export class AppComponent implements OnInit {
       if (this.editingIndex !== undefined && this.editingIndex > -1) {
         this.allFiledNameList[this.editingIndex] = this.createADefaultKeyObj();
         this.invoiceKeyList = this.allFiledNameList[this.editingIndex];
-        console.log(this.allFiledNameList);
       }
     }
     this.isEdit = false;
@@ -686,7 +674,6 @@ export class AppComponent implements OnInit {
   }
 
   showDownloadFileBtn(): void {
-    console.log(this.checkIfOutputListNotEmpty());
     if (this.checkIfOutputListNotEmpty()) {
       this.isShowDownloadBtn = false;
       this.hasOutput = true;
@@ -736,10 +723,7 @@ export class AppComponent implements OnInit {
 
   scrollToLayoutList(i: number): void {
     this.layoutList[i];
-    console.log(this.layoutList);
     this.layoutList.forEach((item, index) => {
-      console.log(item.nativeElement);
-      console.log(index);
       if (i === index) {
         item.nativeElement.scrollIntoView({
           behavior: 'smooth',
