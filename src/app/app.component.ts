@@ -66,6 +66,7 @@ export class AppComponent implements OnInit {
   displayedDefaultKeyList?: string[];
   isEditingLayout = false;
   behavior?: IBehavior;
+  date?: Date;
 
   Toast = Swal.mixin({
     toast: true,
@@ -89,6 +90,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.date = new Date();
     // const foo = ['123', '321', '123', '1234567', 'cassie'];
     // this.allFiledNameList.push(foo);
     // localStorage.setItem(
