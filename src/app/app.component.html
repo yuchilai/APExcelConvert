@@ -50,10 +50,6 @@
       ></button>
     </div>
   </div>
-
-  <p>
-    You can edit order by click edit and simpily drag and drop to adjust them.
-  </p>
   <div class="export-file-name-box">
     <span>Export file name : </span>
     <span class="export-name">{{ exportFileName }}</span>
@@ -121,9 +117,10 @@
   </div>
   <div class="input-box">
     <div class="control-accpet-box">
+      <!-- [style]="isAutoDowload ? excelStyle : notExcelStyle" -->
       <div
         class="control-title"
-        [style]="isAutoDowload ? excelStyle : notExcelStyle"
+
       >
         {{
           isAutoDowload
@@ -146,9 +143,10 @@
     </div>
 
     <div class="control-accpet-box">
+      <!-- [style]="isExcelOnly ? excelStyle : notExcelStyle" -->
       <div
         class="control-title"
-        [style]="isExcelOnly ? excelStyle : notExcelStyle"
+       
       >
         {{ isExcelOnly ? 'Only Accept Excel File' : 'Accept Any File' }}
       </div>
@@ -165,7 +163,6 @@
 </label> -->
       </div>
     </div>
-
     <div class="default-layout-box">
       <div class="default-box"></div>
     </div>
@@ -213,11 +210,11 @@
           Edit default layout
         </button>
       </div> -->
-      <div class="layout-detail-container">
+      <!-- <div class="layout-detail-container">
         <div *ngFor="let name of selectedKeyList" class="cell">
           {{ name }}
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="mb-3">
@@ -227,7 +224,7 @@
       <input
         #myInput
         (change)="onFileChange($event)"
-        class="form-control"
+        class="form-control form-control-lg"
         type="file"
         id="formFile"
         accept="{{ isExcelOnly ? acceptExcelOnly : '' }}"
@@ -281,7 +278,7 @@
   <div class="line"></div>
 
   <h1>Add Or Edit Layout</h1>
-  <div class="adding-mode">
+  <!-- <div class="adding-mode">
     <h3>Switch Adding Mode</h3>
     <ol>
       <li>Sport Mode (Continue adding without a click)</li>
@@ -299,7 +296,11 @@
         isSportMode ? 'Sport Mode' : 'Comfort Mode'
       }}</label>
     </div>
-  </div>
+  </div> -->
+
+  <p>
+    You can edit order by click edit and simpily drag and drop to adjust them.
+  </p>
 
   <div #editArea class="list-box">
     <div *ngIf="!isEdit" class="displayed-list">

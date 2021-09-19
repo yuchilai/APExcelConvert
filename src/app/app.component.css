@@ -8,6 +8,10 @@
   position: relative;
 }
 
+#formFile {
+  line-height: 2.5;
+}
+
 h1 {
   font-size: 35px;
   font-weight: bolder;
@@ -15,9 +19,9 @@ h1 {
 }
 p {
   font-family: Lato;
-  border: #143d59 solid 1px;
+  /* border: #143d59 solid 1px; */
   border-radius: 5px;
-  padding: 30px;
+  padding: 20px;
   margin: 5px;
 }
 
@@ -121,7 +125,7 @@ p {
 .control-title {
   margin-right: 10px;
   /* line-height: 26px; */
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   border-radius: 5px;
   padding: 1px;
@@ -129,7 +133,8 @@ p {
 
 .form-label {
   margin-top: 20px;
-  font-size: 20px;
+  font-size: 26px;
+  font-weight: bolder;
 }
 
 .export-name {
@@ -141,7 +146,7 @@ p {
 .export-file-name-box {
   border: #143d59 solid 1px;
   border-radius: 5px;
-  padding: 30px;
+  padding: 15px;
   margin: 5px;
 }
 
@@ -254,7 +259,7 @@ p {
 .adding-mode {
   border: #143d59 solid 1px;
   border-radius: 5px;
-  padding: 30px;
+  padding: 20px;
   margin: 5px;
 }
 
@@ -434,7 +439,7 @@ p {
 }
 
 .layout-detail-container {
-  height: 350px;
+  height: 200px;
   overflow: auto;
 }
 
@@ -471,10 +476,11 @@ p {
 }
 
 .cell {
-  padding: 20px 10px;
+  font-size: 16px;
+  padding: 10px 5px;
   border-radius: 10px;
   display: inline-block;
-  margin: 6px 10px;
+  margin: 3px 5px;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }

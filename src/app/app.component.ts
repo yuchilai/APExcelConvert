@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
 
   @ViewChildren('layoutList') layoutList: QueryList<ElementRef>;
 
-  name = 'Certify to Sage Intacct AP Invoices Converter';
+  name = 'Certify to Sage Intacct AP Converter';
   willDownload = false;
   invoiceKeyList: string[] = [];
   invoices: any[] = [];
