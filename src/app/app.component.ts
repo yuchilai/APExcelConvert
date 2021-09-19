@@ -134,6 +134,9 @@ export class AppComponent implements OnInit {
           this.storageName,
           JSON.stringify(this.allFiledNameList)
         );
+      } else {
+        this.selectedIndex = 0;
+        this.selectedKeyList = this.invoiceKeyList;
       }
     }
 
